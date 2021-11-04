@@ -1,11 +1,17 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
+import { useModel } from 'umi';
 
-export default () => {
-  const [collapsed, setCollapsed] = useState(true);
+export default ({collapsed}) => {
+  const { initialState, setInitialState } = useModel('@@initialState');
   return <div
-    onClick={() => {
-      setCollapsed(true)
+    onClick={(event) => {
+      setInitialState({
+        ...initialState,
+        data: {
+          layout: !collapsed
+        }
+      })
     }}
     style={{
       marginLeft: '6em',

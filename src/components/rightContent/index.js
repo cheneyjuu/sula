@@ -3,6 +3,7 @@ import { Avatar, Badge, Space, Tooltip } from 'antd';
 import { GithubOutlined, UserOutlined } from '@ant-design/icons';
 import Dropdown from '@/components/avatarDropdown';
 import LocaleSwitch from '@/components/localeSwitch';
+import NotificationDropdown from '@/components/notificationDropdown';
 
 export default () => {
   return (
@@ -20,6 +21,7 @@ export default () => {
       {/*  />*/}
       {/*</Tooltip>*/}
       {/*<LocaleSwitch />*/}
+      <NotificationDropdown />
       <Badge count={5}>
         <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
       </Badge>

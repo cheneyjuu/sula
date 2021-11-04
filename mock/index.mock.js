@@ -6,3 +6,4 @@ import './release.mock';
 import './charts.mock';
 import './campaign.mock';
 import './basicData.mock';
+import './menu.mock';

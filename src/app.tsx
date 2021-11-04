@@ -4,11 +4,16 @@ import { getLocale, history, Link } from 'umi';
 import RightContent from '@/components/rightContent';
 import CollapsedSwitch from '@/components/collapsedSwitch';
 import { BasicLayoutProps, DefaultFooter } from '@ant-design/pro-layout';
-import { MenuUnfoldOutlined, MenuFoldOutlined  } from '@ant-design/icons';
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 
 //  https://umijs.org/zh-CN/plugins/plugin-initial-state
 export async function getInitialState() {
   const { pathname, href = '' } = location;
+  const data = {
+    layout: {
+      collapsed: false,
+    },
+  };
   if (pathname !== '/user/login') {
     try {
       let redirect = '';
@@ -21,39 +26,54 @@ export async function getInitialState() {
         method: 'post',
       });
 
+      const menus = await request({
+        url: '/api/menus',
+        method: 'get'
+      });
+
+      console.group('menus');
+      console.log(menus);
+      
+
       if (!currentUser || currentUser === 'none') {
         history.push('/user/login' + redirect);
         return;
       }
+
       return {
         currentUser,
+        data,
       };
     } catch (error) {
       history.push('/user/login');
     }
   }
 
-  return {};
+  return {
+    data,
+  };
 }
 
 // https://umijs.org/zh-CN/plugins/plugin-layout
-export const layout = (): BasicLayoutProps => {
-
-  let collapsed = false;
+export const layout = async (event: any) => {
+  console.log('the event is initailState', event);
+  const { initialState, loading, error, refresh, setInitialState } = event;
+  let collapsed = initialState?.data?.layout || false;
 
   return {
-    title: '南泉分校',
+    title: 'Sula-Demo',
     logo: 'https://img.alicdn.com/tfs/TB1GfPJxYH1gK0jSZFwXXc7aXXa-56-56.svg',
     siderWidth: 208,
     navTheme: 'light',
     layout: 'mix',
     fixSiderbar: true,
+    // 隐藏nav底部的collapsed
     collapsedButtonRender: false,
     collapsed,
     menu: {
       // type: 'group',
       defaultOpenAll: true,
-      ignoreFlatMenu: true
+      ignoreFlatMenu: true,
     },
     breadcrumbRender: (routers = []) => {
       return [
@@ -80,7 +100,7 @@ export const layout = (): BasicLayoutProps => {
       fontSize: 13,
     },
     headerTheme: 'light',
-    headerContentRender: () =>  <CollapsedSwitch />,
+    headerContentRender: () => <CollapsedSwitch collapsed={collapsed} />,
     footerRender: () => (
       <DefaultFooter
         links={[
@@ -93,15 +113,15 @@ export const layout = (): BasicLayoutProps => {
             key: 'logo',
             title: (
               <img
-                src='https://img.alicdn.com/tfs/TB1GfPJxYH1gK0jSZFwXXc7aXXa-56-56.svg'
-                width='14px'
+                src="https://img.alicdn.com/tfs/TB1GfPJxYH1gK0jSZFwXXc7aXXa-56-56.svg"
+                width="14px"
               />
             ),
             href: 'https://github.com/umijs/sula-real',
           },
           { key: 'sula', title: 'Sula', href: 'https://github.com/umijs/sula' },
         ]}
-        copyright='Sula.JS'
+        copyright="Sula.JS"
       />
     ),
   };
