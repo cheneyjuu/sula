@@ -31,10 +31,6 @@ export async function getInitialState() {
         method: 'get'
       });
 
-      console.group('menus');
-      console.log(menus);
-      
-
       if (!currentUser || currentUser === 'none') {
         history.push('/user/login' + redirect);
         return;
@@ -58,7 +54,7 @@ export async function getInitialState() {
 export const layout = async (event: any) => {
   console.log('the event is initailState', event);
   const { initialState, loading, error, refresh, setInitialState } = event;
-  let collapsed = initialState?.data?.layout || false;
+  let collapsed = initialState?.data?.layout;
 
   return {
     title: 'Sula-Demo',
@@ -69,7 +65,7 @@ export const layout = async (event: any) => {
     fixSiderbar: true,
     // 隐藏nav底部的collapsed
     collapsedButtonRender: false,
-    collapsed,
+    collapsed: collapsed.collapsed,
     menu: {
       // type: 'group',
       defaultOpenAll: true,
@@ -85,7 +81,7 @@ export const layout = async (event: any) => {
       ];
     },
     // hash 路由跳转
-    itemRender: (route, params, routes, paths) => {
+    itemRender: (route: any, params: any, routes: any, paths: any) => {
       const last = routes.indexOf(route) === routes.length - 1;
       const { path, breadcrumbName } = route;
       if (last) {
@@ -96,7 +92,7 @@ export const layout = async (event: any) => {
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     waterMarkProps: {
-      content: '南泉分校',
+      content: null,
       fontSize: 13,
     },
     headerTheme: 'light',

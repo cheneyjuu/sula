@@ -40,11 +40,11 @@ export default [
   },
   {
     path: '/',
-    redirect: '/charts',
+    redirect: '/basicData',
   },
   {
-    path: '/charts',
-    redirect: '/charts/basic',
+    path: '/basicData',
+    redirect: '/basicData/modifyPwd',
   },
   {
     name: 'charts',
@@ -60,6 +60,10 @@ export default [
         path: '/charts/basic',
         name: 'basic',
         component: './charts',
+        target: '_blank',
+    menuRender: false,
+    menuHeaderRender: false,
+    headerRender: false,
       },
       {
         component: './exception/404',
