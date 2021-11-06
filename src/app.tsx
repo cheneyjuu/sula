@@ -54,7 +54,7 @@ export async function getInitialState() {
 export const layout = async (event: any) => {
   console.log('the event is initailState', event);
   const { initialState, loading, error, refresh, setInitialState } = event;
-  let collapsed = initialState?.data?.layout;
+  let collapsed = initialState?.data?.layout?.collapsed;
 
   return {
     title: 'Sula-Demo',
@@ -65,7 +65,7 @@ export const layout = async (event: any) => {
     fixSiderbar: true,
     // 隐藏nav底部的collapsed
     collapsedButtonRender: false,
-    collapsed: collapsed.collapsed,
+    collapsed,
     menu: {
       // type: 'group',
       defaultOpenAll: true,

@@ -14,7 +14,9 @@ export default ({ collapsed }) => {
           setInitialState({
             ...initialState,
             data: {
-              layout: !collapsed,
+              layout: {
+                collapsed: !collapsed
+              },
             },
           });
         }}
@@ -28,8 +30,8 @@ export default ({ collapsed }) => {
         {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
       </div>
       <Divider type="vertical" style={{height: '80%'}} />
-      <span 
-        style={{ 
+      <span
+        style={{
           paddingLeft: '2em',
           cursor: 'pointer',
         }}
@@ -37,7 +39,7 @@ export default ({ collapsed }) => {
           () => {
             setOpenCard(true)
           }
-        } 
+        }
         onMouseLeave={() => {setOpenCard(false)}}
       >
         All products
