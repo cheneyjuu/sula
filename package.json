@@ -14,16 +14,17 @@
     "@antv/g6": "^3.5.6",
     "@sula/charts": "^1.0.0-alpha.6",
     "antd": "^4.3.1",
-    "sula": "^1.2.0-beta.68",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "sula": "^1.2.0-beta.68",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "devDependencies": {
     "@umijs/preset-react": "^1.5.8",
     "babel-plugin-import": "^1.13.0",
+    "cross-env": "^7.0.3",
     "mockjs": "^1.1.0",
     "umi": "^3.5.20",
-    "umi-plugin-sula": "^1.0.0-beta.2",
-    "cross-env": "^7.0.3"
+    "umi-plugin-sula": "^1.0.0-beta.2"
   }
 }

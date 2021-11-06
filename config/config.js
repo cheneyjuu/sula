@@ -1,6 +1,7 @@
 import { defineConfig } from 'umi';
 import routes from './route.config';
 import { IrisBlue, GeekBlue } from './theme';
+import tailwindcss from 'tailwindcss';
 
 export default defineConfig({
   sula: {
@@ -11,6 +12,9 @@ export default defineConfig({
   extraBabelPlugins: [
     // libraryDirectory: 'es' 必须这样写
     ['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }],
+  ],
+  extraPostCSSPlugins: [
+    tailwindcss,
   ],
   nodeModulesTransform: {
     type: 'none',
