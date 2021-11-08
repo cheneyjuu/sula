@@ -4,7 +4,7 @@ import { QueryTable } from 'sula';
 export default () => {
   const formFields = [
     {
-      'name': 'subSchoolCode',
+      'name': 'cno',
       'label': '编码',
       'field': {
         'type': 'input',
@@ -20,7 +20,7 @@ export default () => {
       ],
     },
     {
-      'name': 'subSchoolName',
+      'name': 'cname',
       'label': '名称',
       'field': {
         'type': 'input',
@@ -36,12 +36,12 @@ export default () => {
       ],
     },
     {
-      name: 'subSchoolAddress',
+      name: 'addr',
       label: '教室地址',
       field: 'input',
     },
     {
-      name: 'subSchoolPosition',
+      name: 'branchschool',
       label: '教学点',
       field: 'input',
     },
@@ -51,7 +51,7 @@ export default () => {
       field: 'input',
     },
     {
-      name: 'remainSeat',
+      name: 'seated',
       label: '保留座位',
       field: 'input',
     },
@@ -67,19 +67,19 @@ export default () => {
         'sorter': true,
       },
       {
-        'key': 'subSchoolCode',
+        'key': 'cno',
         'title': '编码',
       },
       {
-        'key': 'subSchoolName',
+        'key': 'cname',
         'title': '名称',
       },
       {
-        'key': 'subSchoolAddress',
+        'key': 'addr',
         'title': '教室地址',
       },
       {
-        'key': 'subSchoolPosition',
+        'key': 'branchschool',
         'title': '教学点',
       },
       {
@@ -87,17 +87,17 @@ export default () => {
         'title': '座位排、列',
       },
       {
-        'key': 'remainSeat',
+        'key': 'seated',
         'title': '保留座位',
       },
       {
-        'key': 'status',
+        'key': 'ison',
         'title': '状态',
         'render': {
           'type': 'tag',
           'props': {
-            'children': '#{text}',
-            'color': '#{text === "using" ? "#f50" : text === "valid" ? "#87d068" : "#2db7f5"}',
+            'children': 'OPEN',
+            // "color": '#{text === "1" ? "#2db7f5" : "#f50"}'
           },
         },
       },
@@ -142,7 +142,7 @@ export default () => {
 
   const queryFields = [
     {
-      'name': 'subSchoolName',
+      'name': 'cname',
       'label': '名称',
       'field': {
         'type': 'input',
@@ -156,7 +156,7 @@ export default () => {
       }
     },
     {
-      'name': 'subSchoolPosition',
+      'name': 'branchschool',
       'label': '教学点',
       'field': {
         'type': 'input',
@@ -168,27 +168,25 @@ export default () => {
   ]
 
   const remoteDataSource = {
-    url: 'https://randomuser.me/api',
-    method: 'GET',
+    url: '/api/classroom.json',
+    method: 'POST',
     convertParams({ params }) {
       return {
-        results: params.pageSize,
         ...params,
       };
     },
     converter({ data }) {
+      console.log(data)
       return {
         list: data.results.map((item, index) => {
+          console.log(item);
           return {
             ...item,
-            id: `${index}`,
-            subSchoolCode: `${item.id.name}`,
-            subSchoolName: `${item.name.first} ${item.name.last}`,
-            subSchoolAddress: item.location.country,
-            index,
+            id: item.id,
+            classSeat: `${item.row}、${item.col}`
           };
         }),
-        total: 100
+        total: 10
       };
     },
   };
